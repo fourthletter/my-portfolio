@@ -1,4 +1,4 @@
-# Diluong Portfolio
+# Di Luong Portfolio
 
 Minimal modern portfolio built with Next.js App Router and Tailwind CSS.
 

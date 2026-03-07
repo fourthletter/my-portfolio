@@ -24,12 +24,12 @@ export default function SiteHeader() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-stone-200/80 bg-stone-50/90 backdrop-blur-sm">
+    <header className="sticky top-0 z-50 border-b border-[#b9c4cc]/90 bg-[#e8eaed]/95 backdrop-blur-sm">
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4 sm:px-10">
-        <Link href="/" className="text-sm font-semibold tracking-tight text-stone-900">
-          Diluong Portfolio
+        <Link href="/" className="text-sm font-semibold tracking-tight text-[#142635]">
+          Di Luong
         </Link>
-        <nav className="flex items-center gap-5 text-sm text-stone-700">
+        <nav className="flex items-center gap-5 text-sm text-[#4c5a67]">
           {navItems.map((item) => {
             const isActive = getIsActive(pathname, item.href);
 
@@ -39,8 +39,8 @@ export default function SiteHeader() {
                 href={item.href}
                 className={`transition ${
                   isActive
-                    ? "font-semibold text-stone-900 underline decoration-2 underline-offset-8"
-                    : "text-stone-700 hover:text-stone-900"
+                    ? "font-semibold text-[#142635] underline decoration-2 decoration-[#d8a34a] underline-offset-8"
+                    : "text-[#4c5a67] hover:text-[#142635]"
                 }`}
               >
                 {item.label}

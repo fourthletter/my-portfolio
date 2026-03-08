@@ -10,82 +10,43 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    slug: "ai-newsletter-automation",
-    title: "AI Newsletter Automation",
+    slug: "ai-notetaking-app-nextjs",
+    title: "AI Notetaking App with Next.js",
     description:
-      "Built autonomous agents that curate, summarize, and publish newsletter content with minimal manual work.",
-    stack: ["Python", "AI Agents", "Automation"],
-    challenge:
-      "Editorial workflows required high manual effort and inconsistent publishing cadence.",
-    approach:
-      "Designed an agent pipeline for source discovery, summarization, and quality checks before publication.",
-    impact:
-      "Reduced preparation time and improved repeatability, enabling faster iteration on newsletter themes.",
-  },
-  {
-    slug: "langflow-automation-workflows",
-    title: "Langflow Automation Workflows",
-    description:
-      "Designed visual AI pipelines with Langflow to orchestrate prompt chains, tools, and integrations.",
-    stack: ["Langflow", "LLM Workflows", "API Integrations"],
-    challenge:
-      "Teams needed faster experimentation across prompt flows without rebuilding core logic each time.",
-    approach:
-      "Mapped reusable Langflow blocks for ingestion, reasoning, and action-taking with clear interfaces.",
-    impact:
-      "Increased prototyping speed and improved collaboration between technical and non-technical stakeholders.",
-  },
-  {
-    slug: "ai-notetaking-app",
-    title: "AI Notetaking App",
-    description:
-      "Developed a Next.js app for capturing notes, organizing ideas, and adding AI-assisted summarization.",
+      "Built an AI-assisted notetaking product in Next.js for faster capture, organization, and summarization of ideas.",
     stack: ["Next.js", "TypeScript", "AI Features"],
     challenge:
-      "Users needed a way to turn raw notes into structured insights without added friction.",
+      "Users struggled to turn scattered notes into searchable, useful insights.",
     approach:
-      "Built a clean, responsive interface with AI-assisted summaries and searchable note organization.",
+      "Designed a clean note workflow with AI summaries and structured retrieval.",
     impact:
-      "Improved content clarity and retrieval, helping users move from capture to action more efficiently.",
+      "Reduced friction between capturing information and turning it into action.",
   },
   {
-    slug: "microservice-apps-with-ai",
-    title: "Microservice Apps with AI",
+    slug: "micro-service-applications-with-ai",
+    title: "Building Micro-Service Applications with AI",
     description:
-      "Implemented microservice-based systems where AI capabilities are exposed as modular services.",
+      "Developed modular micro-service systems where AI capabilities are exposed through independent services.",
     stack: ["Microservices", "Python", "System Design"],
     challenge:
-      "AI functionality had to be integrated without coupling tightly to product-specific logic.",
+      "AI features needed to scale without tightly coupling product logic and model logic.",
     approach:
-      "Separated AI workloads into service boundaries with explicit contracts and observability points.",
+      "Defined clear service boundaries, contracts, and observability for AI-heavy workloads.",
     impact:
-      "Improved maintainability and enabled independent scaling of AI-heavy application paths.",
+      "Improved reliability, maintainability, and independent scaling of services.",
   },
   {
-    slug: "python-scripting-scraping",
-    title: "Python Scripting & Scraping",
+    slug: "newsletter-app",
+    title: "Newsletter App",
     description:
-      "Created data collection and automation scripts for repeatable extraction and transformation workflows.",
-    stack: ["Python", "Web Scraping", "Data Pipelines"],
+      "Created a newsletter app to streamline content preparation, publishing workflows, and repeatable updates.",
+    stack: ["Automation", "Content Ops", "Python"],
     challenge:
-      "Data collection tasks were repetitive, brittle, and difficult to monitor over time.",
+      "Publishing flows were manual and time-consuming.",
     approach:
-      "Built robust scripts with retry logic, validation steps, and structured output for downstream use.",
+      "Implemented reusable tooling to support drafting, review, and delivery steps.",
     impact:
-      "Increased data reliability and reduced operational overhead for recurring collection processes.",
-  },
-  {
-    slug: "html-based-websites",
-    title: "HTML-Based Websites",
-    description:
-      "Built fast, lightweight websites with clear structure and modern design fundamentals.",
-    stack: ["HTML", "CSS", "JavaScript"],
-    challenge:
-      "Many projects needed polished experiences with minimal stack complexity and quick turnaround.",
-    approach:
-      "Focused on semantic structure, performance-first styling, and straightforward maintainable code.",
-    impact:
-      "Delivered reliable web experiences that were easy to ship, audit, and evolve.",
+      "Increased publishing consistency and reduced turnaround time.",
   },
 ];
 
@@ -98,7 +59,12 @@ export const capabilities: string[] = [
   "Data-Informed Decision Making",
 ];
 
-export const skills: string[] = ["Cursor.ai", "Langflow", "Python"];
+export const skills: string[] = [
+  "HTML based websites",
+  "Coding with AI Agents",
+  "Python scripting, scraping",
+  "Langflow automation",
+];
 
 export const bioParagraphs: string[] = [
   "I am a Senior Program Leader with over 15 years of experience in global social impact projects, specializing in AI, digital rights, and program management.",

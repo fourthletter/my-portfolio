@@ -15,7 +15,7 @@ export default function AboutPage() {
         <div className="grid items-start gap-12 md:grid-cols-[320px_minmax(0,1fr)]">
           <div className="rounded-2xl border border-[#b9c4cc] bg-[#f4f6f8] p-4 shadow-[0_12px_28px_rgba(20,38,53,0.12)]">
             <Image
-              src="/favicon-di-image.png"
+              src="/di-photo.jpg"
               alt="Di Luong profile photo"
               width={320}
               height={320}

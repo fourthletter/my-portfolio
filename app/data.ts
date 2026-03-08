@@ -7,6 +7,7 @@ export type Project = {
   approach: string;
   impact: string;
   image?: string;
+  images?: string[];
   highlights?: string[];
   references?: Array<{
     label: string;
@@ -66,12 +67,16 @@ export const projects: Project[] = [
       "Designed group-based workflows for lending, saving motivation, and transparent tracking of loans and financial transactions.",
     impact:
       "Enabled community-driven saving behavior and gave users clearer visibility into their group financial progress.",
-    image: "/eSuSu.jpeg",
+    image: "/e-susu.webp",
     highlights: [
       "Won the grand prize at Ujamaathon.",
       "Featured in TechCrunch for bridging informal community loan groups with digital tools.",
     ],
     references: [
+      {
+        label: "GitHub repo",
+        url: "https://github.com/fourthletter/eSuSu",
+      },
       {
         label: "TechCrunch feature",
         url: "https://techcrunch.com/2016/05/08/e-susu-aims-to-close-the-gap-between-community-loan-groups-and-traditional-banking-services/",
@@ -82,7 +87,7 @@ export const projects: Project[] = [
     slug: "nanny-state",
     title: "Nanny State",
     description:
-      "Researched how AI and surveillance technologies affect domestic workers, while involving nannies and housekeepers in designing community-centered solutions.",
+      "The Nanny Surveillance State, a project under the Mozilla Foundation's Building Trustworthy AI Working Group, aims to illuminate the impact of surveillance and artificial intelligence on the labor industry, particularly on domestic workers, e.g., nannies and housekeepers. Through a design justice lens, this project centers the lived experiences of domestic workers to inform community-centered solutions that ensure their dignity as laborers. This discovery process provides a framework for the use of AI surveillance from a two-pronged approach: (1) research which defines the prevalence of home surveillance technology in households around Europe and (2) a co-design process involving nannies, housekeepers, and other domestic laborers in understanding surveillance technology that is currently driving their industry.",
     stack: ["AI Governance", "Labor Rights", "Community Research"],
     challenge:
       "AI systems on job platforms often overlook legal frameworks and the lived experiences of domestic laborers.",
@@ -90,11 +95,16 @@ export const projects: Project[] = [
       "Documented surveillance prevalence in households across Europe and co-designed worker-informed AI recommendations with domestic workers.",
     impact:
       "Elevated worker expertise in AI policy/design conversations and advanced dignity-centered approaches for domestic labor.",
+    images: ["/nanny-state-1.png", "/nanny-state-2.png"],
     highlights: [
       "Selected as a Mozilla Foundation AI Working Group project.",
       "Featured at MozFest 2021 for design justice and inclusivity-centered AI work.",
     ],
     references: [
+      {
+        label: "GitHub repo",
+        url: "https://github.com/fourthletter/nanny-surveillance",
+      },
       {
         label: "Mozilla Foundation feature",
         url: "https://www.mozillafoundation.org/en/blog/building-with-a-bias-for-inclusivity-at-mozfest-2021/",
@@ -105,7 +115,7 @@ export const projects: Project[] = [
     slug: "demochat",
     title: "DemoChat",
     description:
-      "Created an electronic suggestion box for factory workers to report workplace conditions and make labor issues more transparent.",
+      "Prototype a mobile suggestion box for factory workers to report workplace conditions and make labor issues more transparent.",
     stack: ["Worker Reporting", "Labor Transparency", "Conversational UX"],
     challenge:
       "Poor labor conditions were underreported due to limited safe and structured reporting channels.",
@@ -113,6 +123,7 @@ export const projects: Project[] = [
       "Implemented a simple digital reporting flow that captures worker feedback in a consistent, actionable format.",
     impact:
       "Improved visibility into workplace issues and supported more responsive labor-condition monitoring.",
+    images: ["/Finalists-600x401.jpg"],
     highlights: [
       "Won the bronze prize at Make All Voices Count in Jakarta, Indonesia.",
       "Selected for the Digital Participation Camp in Munster, Germany.",
@@ -121,6 +132,10 @@ export const projects: Project[] = [
       {
         label: "DemoChat event video",
         url: "https://www.youtube.com/watch?v=EfocaSr1kS0",
+      },
+      {
+        label: "Making All Voices Count article",
+        url: "https://www.makingallvoicescount.org/news/global-innovation-competition-finale-innovation-celebration-and-now-the-hard-work-really-begins/",
       },
     ],
   },

@@ -43,6 +43,12 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
     notFound();
   }
 
+  const projectImages = project.images?.length
+    ? project.images
+    : project.image
+      ? [project.image]
+      : [];
+
   return (
     <main className="bg-[#e8eaed] text-[#142635]">
       <section className="fade-in-up mx-auto w-full max-w-4xl px-6 py-20 sm:px-10">
@@ -61,15 +67,22 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
         <p className="mt-7 max-w-3xl text-lg leading-9 text-[#4c5a67]">
           {project.description}
         </p>
-        {project.image ? (
-          <div className="mt-8 max-w-lg overflow-hidden rounded-2xl border border-[#b9c4cc] bg-white p-2 shadow-[0_10px_24px_rgba(20,38,53,0.12)]">
-            <Image
-              src={project.image}
-              alt={`${project.title} project image`}
-              width={640}
-              height={420}
-              className="h-auto w-full rounded-xl object-cover"
-            />
+        {projectImages.length ? (
+          <div className="mt-8 grid max-w-3xl gap-4 sm:grid-cols-2">
+            {projectImages.map((imagePath) => (
+              <div
+                key={imagePath}
+                className="overflow-hidden rounded-2xl border border-[#b9c4cc] bg-white p-2 shadow-[0_10px_24px_rgba(20,38,53,0.12)]"
+              >
+                <Image
+                  src={imagePath}
+                  alt={`${project.title} project image`}
+                  width={640}
+                  height={420}
+                  className="h-auto w-full rounded-xl object-cover"
+                />
+              </div>
+            ))}
           </div>
         ) : null}
         {project.highlights?.length ? (

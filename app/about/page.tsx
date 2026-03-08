@@ -3,9 +3,9 @@ import Image from "next/image";
 import { bioParagraphs, capabilities, skills } from "../data";
 
 export const metadata: Metadata = {
-  title: "About | Di Luong",
+  title: "Bio | Di Luong",
   description:
-    "About Di Luong, Senior Program Leader focused on AI, digital rights, and social impact.",
+    "Bio of Di Luong, researcher, writer, and technologist focused on social justice and technology.",
 };
 
 export default function AboutPage() {
@@ -25,10 +25,11 @@ export default function AboutPage() {
           </div>
           <div>
             <p className="text-sm font-medium tracking-[0.18em] text-[#4c5a67] uppercase">
-              About
+              Bio
             </p>
             <h1 className="mt-6 max-w-4xl text-5xl leading-[0.98] font-extrabold tracking-tight sm:text-7xl">
-              Advancing inclusive and equitable AI systems.
+              I am a researcher, writer, and technologist connecting the dots
+              between social justice and technology.
             </h1>
             <div className="mt-8 max-w-3xl space-y-6 text-lg leading-9 text-[#4c5a67]">
               {bioParagraphs.map((paragraph) => (

@@ -19,8 +19,7 @@ export default function ProjectsPage() {
           Selected work across AI and social impact.
         </h1>
         <p className="mt-7 max-w-3xl text-lg leading-9 text-[#4c5a67]">
-          A focused collection of projects spanning AI agents, workflow
-          automation, modern web applications, and practical tooling.
+          Selected work across AI and social impact.
         </p>
         <div className="mt-12 grid gap-6 md:grid-cols-2">
           {projects.map((project) => (

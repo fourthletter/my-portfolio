@@ -9,7 +9,7 @@ export default function Home() {
           Senior Program Leader
         </p>
         <h1 className="mt-8 max-w-5xl text-5xl leading-[0.98] font-extrabold tracking-tight sm:text-7xl">
-          Driving equitable AI through leadership, research, and action.
+          Driving equitable technology through leadership, research, and action.
         </h1>
         <p className="mt-8 max-w-3xl text-lg leading-8 text-[#4c5a67] sm:text-2xl sm:leading-9">
           Senior Program Leader with 15+ years of experience delivering global
@@ -50,7 +50,8 @@ export default function Home() {
             </h2>
             <p className="mt-5 max-w-xl text-lg leading-8 text-[#4c5a67]">
               Building partnerships, programs, and practical tools that help
-              communities understand, challenge, and shape the impact of AI.
+              communities understand, challenge, and shape the impact of
+              technology.
             </p>
           </div>
           <div>

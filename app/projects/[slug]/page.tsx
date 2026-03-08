@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProjectBySlug, projects } from "../../data";
@@ -60,6 +61,49 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
         <p className="mt-7 max-w-3xl text-lg leading-9 text-[#4c5a67]">
           {project.description}
         </p>
+        {project.image ? (
+          <div className="mt-8 max-w-lg overflow-hidden rounded-2xl border border-[#b9c4cc] bg-white p-2 shadow-[0_10px_24px_rgba(20,38,53,0.12)]">
+            <Image
+              src={project.image}
+              alt={`${project.title} project image`}
+              width={640}
+              height={420}
+              className="h-auto w-full rounded-xl object-cover"
+            />
+          </div>
+        ) : null}
+        {project.highlights?.length ? (
+          <div className="mt-8 max-w-3xl">
+            <h2 className="text-sm font-medium tracking-[0.18em] text-[#4c5a67] uppercase">
+              Recognition
+            </h2>
+            <ul className="summary-readable mt-4 list-disc space-y-2 pl-5 text-base leading-8">
+              {project.highlights.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+        {project.references?.length ? (
+          <div className="mt-8 max-w-3xl">
+            <h2 className="text-sm font-medium tracking-[0.18em] text-[#4c5a67] uppercase">
+              References
+            </h2>
+            <div className="mt-4 flex flex-wrap gap-3">
+              {project.references.map((reference) => (
+                <a
+                  key={reference.url}
+                  href={reference.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-secondary btn-sm"
+                >
+                  {reference.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        ) : null}
         <div className="mt-7 flex flex-wrap gap-2.5">
           {project.stack.map((tag) => (
             <span

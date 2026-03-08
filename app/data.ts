@@ -6,6 +6,12 @@ export type Project = {
   challenge: string;
   approach: string;
   impact: string;
+  image?: string;
+  highlights?: string[];
+  references?: Array<{
+    label: string;
+    url: string;
+  }>;
 };
 
 export const projects: Project[] = [
@@ -60,6 +66,17 @@ export const projects: Project[] = [
       "Designed group-based workflows for lending, saving motivation, and transparent tracking of loans and financial transactions.",
     impact:
       "Enabled community-driven saving behavior and gave users clearer visibility into their group financial progress.",
+    image: "/eSuSu.jpeg",
+    highlights: [
+      "Won the grand prize at Ujamaathon.",
+      "Featured in TechCrunch for bridging informal community loan groups with digital tools.",
+    ],
+    references: [
+      {
+        label: "TechCrunch feature",
+        url: "https://techcrunch.com/2016/05/08/e-susu-aims-to-close-the-gap-between-community-loan-groups-and-traditional-banking-services/",
+      },
+    ],
   },
   {
     slug: "nanny-state",
@@ -73,6 +90,16 @@ export const projects: Project[] = [
       "Documented surveillance prevalence in households across Europe and co-designed worker-informed AI recommendations with domestic workers.",
     impact:
       "Elevated worker expertise in AI policy/design conversations and advanced dignity-centered approaches for domestic labor.",
+    highlights: [
+      "Selected as a Mozilla Foundation AI Working Group project.",
+      "Featured at MozFest 2021 for design justice and inclusivity-centered AI work.",
+    ],
+    references: [
+      {
+        label: "Mozilla Foundation feature",
+        url: "https://www.mozillafoundation.org/en/blog/building-with-a-bias-for-inclusivity-at-mozfest-2021/",
+      },
+    ],
   },
   {
     slug: "demochat",
@@ -86,6 +113,16 @@ export const projects: Project[] = [
       "Implemented a simple digital reporting flow that captures worker feedback in a consistent, actionable format.",
     impact:
       "Improved visibility into workplace issues and supported more responsive labor-condition monitoring.",
+    highlights: [
+      "Won the bronze prize at Make All Voices Count in Jakarta, Indonesia.",
+      "Selected for the Digital Participation Camp in Munster, Germany.",
+    ],
+    references: [
+      {
+        label: "DemoChat event video",
+        url: "https://www.youtube.com/watch?v=EfocaSr1kS0",
+      },
+    ],
   },
 ];
 

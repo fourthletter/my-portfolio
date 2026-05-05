@@ -16,7 +16,6 @@
             {% set active = request_path == href or (href != '/' and request_path.startswith(href + '/')) %}
             <a href="{{ href }}" class="{{ 'active' if active else '' }}">{{ item.label }}</a>
           {% endfor %}
-          <a href="{{ url_for('home') }}#contact" class="{{ 'active' if request_path == '/' else '' }}">Contact</a>
         </nav>
       </div>
     </header>

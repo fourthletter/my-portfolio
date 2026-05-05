@@ -22,7 +22,7 @@ class Project:
 PROJECTS: list[Project] = [
     Project(
         slug="ai-notetaking-app-nextjs",
-        title="AI Notetaking App with Next.js",
+        title="Notetaking App with Next.js",
         description="Built an AI-assisted notetaking product in Next.js for faster capture, organization, and summarization of ideas.",
         stack=["Next.js", "TypeScript", "AI Features"],
         challenge="Users struggled to turn scattered notes into searchable, useful insights.",
@@ -123,16 +123,15 @@ CAPABILITIES = [
 
 SKILLS = [
     "HTML based websites",
-    "Coding with AI Agents",
     "Python scripting, scraping",
     "Langflow automation",
 ]
 
 BIO_PARAGRAPHS = [
     "I am a Senior Program Leader with over 15 years of experience in global social impact projects, specializing in AI, digital rights, and program management.",
-    "I have led research and partnerships at organizations like the Algorithmic Justice League and the Open Technology Fund, advocating for equitable digital solutions.",
-    "I have worked on projects to assess AI's impact on society and develop tools that empower communities to understand and challenge technological harms.",
-    "Through my work, I have seen how data and AI can either empower or harm communities. My mission is to drive change through informed, inclusive, and actionable insights.",
+    "I've led research and partnerships at organizations like the Algorithmic Justice League and the Open Technology Fund, advocating for equitable digital solutions.",
+    "I've worked on projects to assess AI's impact on society and develop tools that empower communities to understand and challenge technological harms.",
+    "Through my work, I've seen how data and AI can either empower or harm communities. My mission is to drive change through informed, inclusive, and actionable insights.",
 ]
 
 

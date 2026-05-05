@@ -115,7 +115,7 @@ PROJECTS: list[Project] = [
         references=[
             {
                 "label": "Mapping Pretrial Risk",
-                "url": "https://pretrialrisk.com/#:~:text=Movement%20Alliance%20Project%20has%20spent%20almost%20three%20years%20gathering%20data%20on%20pretrial%20risk%20assessments.",
+                "url": "https://pretrialrisk.com",
             }
         ],
     ),
@@ -158,7 +158,7 @@ SKILLS = [
 ]
 
 BIO_PARAGRAPHS = [
-    "I am a Senior Program Leader with over 15 years of experience in global social impact projects, specializing in AI, digital rights, and program management. My work at the Algorithmic Justice League and the Open Technology Fund focuses on equitable digital solutions. Through my work, I've assessed AI's impact on society and developed platforms for communities to better understand and challenge technological harms. My mission is to drive social justice through informed, inclusive, and actionable insights.",
+    "I am a Senior Program Leader with over 15 years of experience in global social impact projects, specializing in AI, digital rights, and program management. My work at the Algorithmic Justice League and the Open Technology Fund focused on equitable digital solutions. Through my career, I've assessed AI's impact on society and developed platforms for communities to better understand and challenge technological harms. My mission is to drive social justice through informed, inclusive, and actionable insights.",
 ]
 
 

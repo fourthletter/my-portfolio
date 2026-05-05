@@ -145,7 +145,7 @@ export const projects: Project[] = [
     references: [
       {
         label: "Mapping Pretrial Risk",
-        url: "https://pretrialrisk.com/#:~:text=Movement%20Alliance%20Project%20has%20spent%20almost%20three%20years%20gathering%20data%20on%20pretrial%20risk%20assessments.",
+        url: "https://pretrialrisk.com",
       },
     ],
   },

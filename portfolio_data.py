@@ -90,6 +90,36 @@ PROJECTS: list[Project] = [
         ],
     ),
     Project(
+        slug="exposing-the-invisible",
+        title="Exposing The Invisible (Tactical Tech)",
+        description="Contributed to Tactical Tech's Exposing The Invisible initiative, supporting collaboration, knowledge sharing, and practical skill-building for investigative communities.",
+        stack=["Investigative Methods", "Digital Rights", "Community Training"],
+        challenge="People and organizations often lack accessible, practical resources to investigate complex issues safely and effectively.",
+        approach="Supported the development and adaptation of investigation-focused resources, workshops, and learning pathways that make investigative practices more usable for wider communities.",
+        impact="Helped strengthen investigative capacity among journalists, researchers, and civic actors working to collect evidence and understand social issues responsibly.",
+        references=[
+            {
+                "label": "Tactical Tech: Exposing The Invisible",
+                "url": "https://tacticaltech.org/projects/exposing-the-invisible/",
+            }
+        ],
+    ),
+    Project(
+        slug="mapping-pretrial-risk",
+        title="Mapping Pretrial Risk",
+        description="Supported a community-driven project documenting where pretrial risk assessment tools are used and how they can shape incarceration, supervision, and release decisions.",
+        stack=["Data Mapping", "Criminal Justice", "Digital Rights"],
+        challenge="Communities often have limited visibility into how pretrial risk assessments are implemented and how bias can affect outcomes.",
+        approach="Contributed to research and accessible documentation practices that help organizers understand tool usage across jurisdictions and advocate for pretrial decarceration.",
+        impact="Improved public access to information on pretrial risk assessment practices and supported movement-based analysis of algorithmic harm in the legal system.",
+        references=[
+            {
+                "label": "Mapping Pretrial Risk",
+                "url": "https://pretrialrisk.com/#:~:text=Movement%20Alliance%20Project%20has%20spent%20almost%20three%20years%20gathering%20data%20on%20pretrial%20risk%20assessments.",
+            }
+        ],
+    ),
+    Project(
         slug="demochat",
         title="DemoChat",
         description="Prototype a mobile suggestion box for factory workers to report workplace conditions and make labor issues more transparent.",

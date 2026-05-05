@@ -278,6 +278,10 @@ h3 {
   max-width: 19ch;
 }
 
+.card .tag-wrap {
+  margin-top: 0.95rem;
+}
+
 .tag {
   background: #d7ecf5;
   color: var(--accent-dark);
@@ -363,6 +367,33 @@ h3 {
 
 .info-block {
   margin-top: 1.5rem;
+}
+
+.project-detail h1 {
+  max-width: 20ch;
+}
+
+.project-detail .body {
+  max-width: 64ch;
+}
+
+.project-detail .info-block {
+  margin-top: 1.9rem;
+}
+
+.project-detail .button-row {
+  margin-top: 0.95rem;
+}
+
+.project-detail .info-block .btn {
+  font-size: 0.72rem;
+  min-height: 2.35rem;
+  padding: 0.56rem 1.05rem;
+  border-width: 1.5px;
+}
+
+.project-detail .tag-wrap {
+  margin-top: 1.7rem;
 }
 
 .list {

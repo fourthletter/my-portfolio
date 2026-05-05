@@ -158,7 +158,7 @@ SKILLS = [
 ]
 
 BIO_PARAGRAPHS = [
-    "I am a Senior Program Leader with over 15 years of experience in global social impact projects, specializing in AI, digital rights, and program management. My work at the Algorithmic Justice League and the Open Technology Fund focused on equitable digital solutions. Through my career, I've assessed AI's impact on society and developed platforms for communities to better understand and challenge technological harms. My mission is to drive social justice through informed, inclusive, and actionable insights.",
+    "I have over 15 years of experience in global social impact projects, specializing in AI, digital rights, and program management. My work at the Algorithmic Justice League and the Open Technology Fund focused on equitable digital solutions. Through my career, I've assessed AI's impact on society and developed platforms for communities to better understand and challenge technological harms. My mission is to drive social justice through informed, inclusive, and actionable insights.",
 ]
 
 

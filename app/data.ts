@@ -18,9 +18,9 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: "ai-notetaking-app-nextjs",
-    title: "AI Notetaking App with Next.js",
+    title: "Notetaking App with Next.js",
     description:
-      "Built an AI-assisted notetaking product in Next.js for faster capture, organization, and summarization of ideas.",
+      "Built a notetaking product in Next.js for faster capture, organization, and summarization of ideas.",
     stack: ["Next.js", "TypeScript", "AI Features"],
     challenge:
       "Users struggled to turn scattered notes into searchable, useful insights.",
@@ -31,7 +31,7 @@ export const projects: Project[] = [
   },
   {
     slug: "micro-service-applications-with-ai",
-    title: "Building Micro-Service Applications with AI",
+    title: "Building Micro-Service Applications",
     description:
       "Developed modular micro-service systems where AI capabilities are exposed through independent services.",
     stack: ["Microservices", "Python", "System Design"],

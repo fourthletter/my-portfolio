@@ -23,7 +23,7 @@ PROJECTS: list[Project] = [
     Project(
         slug="ai-notetaking-app-nextjs",
         title="Notetaking App with Next.js",
-        description="Built an AI-assisted notetaking product in Next.js for faster capture, organization, and summarization of ideas.",
+        description="Built a notetaking product in Next.js for faster capture, organization, and summarization of ideas.",
         stack=["Next.js", "TypeScript", "AI Features"],
         challenge="Users struggled to turn scattered notes into searchable, useful insights.",
         approach="Designed a clean note workflow with AI summaries and structured retrieval.",
@@ -31,7 +31,7 @@ PROJECTS: list[Project] = [
     ),
     Project(
         slug="micro-service-applications-with-ai",
-        title="Building Micro-Service Applications with AI",
+        title="Building Micro-Service Applications",
         description="Developed modular micro-service systems where AI capabilities are exposed through independent services.",
         stack=["Microservices", "Python", "System Design"],
         challenge="AI features needed to scale without tightly coupling product logic and model logic.",
@@ -128,10 +128,7 @@ SKILLS = [
 ]
 
 BIO_PARAGRAPHS = [
-    "I am a Senior Program Leader with over 15 years of experience in global social impact projects, specializing in AI, digital rights, and program management.",
-    "I've led research and partnerships at organizations like the Algorithmic Justice League and the Open Technology Fund, advocating for equitable digital solutions.",
-    "I've worked on projects to assess AI's impact on society and develop tools that empower communities to understand and challenge technological harms.",
-    "Through my work, I've seen how data and AI can either empower or harm communities. My mission is to drive change through informed, inclusive, and actionable insights.",
+    "I am a Senior Program Leader with over 15 years of experience in global social impact projects, specializing in AI, digital rights, and program management. My work at the Algorithmic Justice League and the Open Technology Fund focuses on equitable digital solutions. Through my work, I've assessed AI's impact on society and developed platforms for communities to better understand and challenge technological harms. My mission is to drive social justice through informed, inclusive, and actionable insights.",
 ]
 
 

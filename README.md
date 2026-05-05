@@ -20,35 +20,37 @@ Open [http://localhost:5000](http://localhost:5000).
 - `/projects` - Projects
 - `/projects/<slug>` - Project detail pages
 
-## Deploy to Vercel (Flask Serverless)
+## Deploy from GitHub to GitHub Pages
 
-This repo is configured for Vercel with:
+This repo deploys directly from GitHub Actions to GitHub Pages by:
 
-- `api/index.py` as the Vercel Python entrypoint
-- `vercel.json` route mapping for Flask + static assets
-- `requirements.txt` for Python runtime dependencies
+- freezing Flask routes into static HTML (`build_static.py`)
+- publishing the generated `dist/` folder
+- writing a `CNAME` file for `diluong.net`
 
 ### Deploy steps
 
-1. Push this project to GitHub.
-2. In [Vercel](https://vercel.com), click **Add New Project** and import the repository.
-3. Keep framework preset as **Other** (or no framework), and keep defaults.
-4. Deploy. Vercel will detect `api/index.py` and build Python runtime.
-5. After first successful deploy, open the generated `.vercel.app` URL and verify:
-   - `/`
-   - `/about`
-   - `/projects`
-   - `/projects/esusu` (sample dynamic route)
+1. Push to `main`.
+2. GitHub Actions runs `.github/workflows/deploy-pages.yml`.
+3. Static files are generated and deployed to GitHub Pages automatically.
 
 ### Connect `diluong.net`
 
-1. In Vercel project settings, open **Domains**.
-2. Add `diluong.net` and `www.diluong.net`.
-3. In your DNS provider, set:
-   - **A** record: host `@` -> `76.76.21.21`
-   - **CNAME** record: host `www` -> `cname.vercel-dns.com`
-4. Back in Vercel, wait for domain verification and TLS issuance.
-5. Set `diluong.net` as primary domain and optionally redirect `www` to apex.
+In your DNS provider, set:
+
+- `A` record host `@` to:
+  - `185.199.108.153`
+  - `185.199.109.153`
+  - `185.199.110.153`
+  - `185.199.111.153`
+- `CNAME` record host `www` to `fourthletter.github.io`
+
+Then in GitHub repository settings:
+
+1. Open **Settings -> Pages**.
+2. Ensure **Source** is **GitHub Actions**.
+3. Confirm custom domain is `diluong.net` (workflow also writes `dist/CNAME`).
+4. Enable **Enforce HTTPS** after DNS resolves.
 
 ## Alternative WSGI deployment
 

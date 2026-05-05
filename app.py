@@ -40,7 +40,7 @@ def home():
     )
 
 
-@app.route("/about")
+@app.route("/about/")
 def about():
     return render_template(
         "about.html",
@@ -51,7 +51,7 @@ def about():
     )
 
 
-@app.route("/projects")
+@app.route("/projects/")
 def projects():
     return render_template(
         "projects.html",
@@ -60,7 +60,7 @@ def projects():
     )
 
 
-@app.route("/projects/<slug>")
+@app.route("/projects/<slug>/")
 def project_detail(slug: str):
     project = get_project_by_slug(slug)
     if project is None:

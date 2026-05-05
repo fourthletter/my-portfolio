@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block content %}
+  <main>
+    <section class="container section narrow fade-in-up">
+      <a href="{{ url_for('projects') }}" class="btn btn-secondary">Back to projects</a>
+      <p class="eyebrow spacer-top">Case Study</p>
+      <h1>{{ project.title }}</h1>
+      <p class="body">{{ project.description }}</p>
+
+      {% if project_images %}
+        <div class="image-grid">
+          {% for image_path in project_images %}
+            <div class="image-frame">
+              <img src="{{ url_for('static', filename=image_path) }}" alt="{{ project.title }} project image" />
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {% if project.highlights %}
+        <div class="info-block">
+          <h2 class="eyebrow">Recognition</h2>
+          <ul class="list">
+            {% for item in project.highlights %}
+              <li>{{ item }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+
+      {% if project.references %}
+        <div class="info-block">
+          <h2 class="eyebrow">References</h2>
+          <div class="button-row">
+            {% for reference in project.references %}
+              <a href="{{ reference.url }}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">{{ reference.label }}</a>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      <div class="tag-wrap">
+        {% for tag in project.stack %}
+          <span class="tag outlined">{{ tag }}</span>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="strip fade-in-up">
+      <div class="container triple">
+        <article>
+          <h2 class="eyebrow">Challenge</h2>
+          <p class="body">{{ project.challenge }}</p>
+        </article>
+        <article>
+          <h2 class="eyebrow">Approach</h2>
+          <p class="body">{{ project.approach }}</p>
+        </article>
+        <article>
+          <h2 class="eyebrow">Impact</h2>
+          <p class="body">{{ project.impact }}</p>
+        </article>
+      </div>
+    </section>
+  </main>
+{% endblock %}

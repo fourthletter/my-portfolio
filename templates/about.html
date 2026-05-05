@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+  <main>
+    <section class="container section fade-in-up">
+      <div class="about-grid">
+        <div class="photo-card">
+          <img src="{{ url_for('static', filename='images/di-photo.jpg') }}" alt="Di Luong profile photo" />
+        </div>
+        <div>
+          <p class="eyebrow">Bio</p>
+          <h1>I am a researcher, writer, and technologist connecting the dots between social justice and technology.</h1>
+          <div class="copy-stack">
+            {% for paragraph in bio_paragraphs %}
+              <p class="body">{{ paragraph }}</p>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="strip fade-in-up">
+      <div class="container split">
+        <div>
+          <h2 class="eyebrow">Core Capabilities</h2>
+          <div class="pill-wrap">
+            {% for item in capabilities %}
+              <span class="pill strong">{{ item }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        <div>
+          <h2 class="eyebrow">Skills</h2>
+          <div class="pill-wrap">
+            {% for item in skills %}
+              <span class="pill strong">{{ item }}</span>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+{% endblock %}

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ page_title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav-row">
+        <a href="{{ url_for('home') }}" class="brand">Di Luong</a>
+        <nav class="nav-links">
+          {% for item in nav_items %}
+            {% set href = url_for(item.endpoint) %}
+            {% set active = request_path == href or (href != '/' and request_path.startswith(href + '/')) %}
+            <a href="{{ href }}" class="{{ 'active' if active else '' }}">{{ item.label }}</a>
+          {% endfor %}
+          <a href="{{ url_for('home') }}#contact" class="{{ 'active' if request_path == '/' else '' }}">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    {% block content %}{% endblock %}
+  </body>
+</html>

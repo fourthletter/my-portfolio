@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+  <main>
+    <section class="hero container fade-in-up">
+      <p class="eyebrow">Senior Program Leader</p>
+      <h1>Driving equitable technology through leadership, research, and action.</h1>
+      <p class="lead">
+        Senior Program Leader with 15+ years of experience delivering global social impact initiatives across AI, digital rights, and responsible technology.
+      </p>
+      <div class="pill-wrap">
+        {% for skill in skills %}
+          <span class="pill">{{ skill }}</span>
+        {% endfor %}
+      </div>
+      <div class="button-row">
+        <a href="{{ url_for('projects') }}" class="btn btn-primary">Explore Projects</a>
+        <a href="{{ url_for('about') }}" class="btn btn-secondary">Read About Me</a>
+      </div>
+    </section>
+
+    <section class="strip fade-in-up" id="contact">
+      <div class="container split">
+        <div>
+          <h2 class="eyebrow">Quick Intro</h2>
+          <p class="body">
+            Building partnerships, programs, and practical tools that help communities understand, challenge, and shape the impact of technology.
+          </p>
+        </div>
+        <div>
+          <h2 class="eyebrow">Connect</h2>
+          <div class="button-row">
+            <a href="https://github.com/fourthletter" target="_blank" rel="noopener noreferrer" class="btn btn-primary">GitHub / fourthletter</a>
+            <a href="https://www.linkedin.com/in/diluong" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">LinkedIn / diluong</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container section fade-in-up">
+      <h2 class="eyebrow">Featured Projects</h2>
+      <div class="card-grid">
+        {% for project in projects %}
+          <article class="card">
+            <h3>{{ project.title }}</h3>
+            <p class="body">{{ project.description }}</p>
+            <div class="tag-wrap">
+              {% for tag in project.stack %}
+                <span class="tag">{{ tag }}</span>
+              {% endfor %}
+            </div>
+            <a href="{{ url_for('project_detail', slug=project.slug) }}" class="inline-link">Read case study</a>
+          </article>
+        {% endfor %}
+      </div>
+      <div class="spacer-top">
+        <a href="{{ url_for('projects') }}" class="btn btn-secondary">View all projects</a>
+      </div>
+    </section>
+  </main>
+{% endblock %}

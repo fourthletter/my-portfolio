@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+  <main>
+    <section class="container section fade-in-up">
+      <p class="eyebrow">Projects</p>
+      <h1>Selected work across AI and social impact.</h1>
+      <p class="body">Selected work across AI and social impact.</p>
+      <div class="card-grid">
+        {% for project in projects %}
+          <article class="card">
+            <h2>{{ project.title }}</h2>
+            <p class="body">{{ project.description }}</p>
+            <div class="tag-wrap">
+              {% for tag in project.stack %}
+                <span class="tag outlined">{{ tag }}</span>
+              {% endfor %}
+            </div>
+            <a href="{{ url_for('project_detail', slug=project.slug) }}" class="btn btn-secondary">Open project details</a>
+          </article>
+        {% endfor %}
+      </div>
+    </section>
+  </main>
+{% endblock %}

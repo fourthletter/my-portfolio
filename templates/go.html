@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'self'; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests" />
+    {% if target %}
+      <meta http-equiv="refresh" content="0; url={{ target }}" />
+      <link rel="canonical" href="{{ target }}" />
+    {% endif %}
+    <meta name="robots" content="noindex" />
+    <title>{{ page_title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+  </head>
+  <body>
+    <main>
+      <section class="container section narrow fade-in-up">
+        {% if target %}
+          <p class="eyebrow">Redirecting</p>
+          <h1>Taking you to your destination.</h1>
+          <p class="body">If the page does not load automatically, follow the link below.</p>
+          <p class="button-row"><a href="{{ target }}" rel="noopener noreferrer" class="btn btn-secondary">Continue</a></p>
+        {% else %}
+          <p class="eyebrow">Link unavailable</p>
+          <h1>This link is not configured.</h1>
+          <p class="body">The destination for this reference is not currently available.</p>
+          <p class="button-row"><a href="{{ url_for('home') }}" class="btn btn-secondary">Return home</a></p>
+        {% endif %}
+      </section>
+    </main>
+  </body>
+</html>

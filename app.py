@@ -1,10 +1,13 @@
 from __future__ import annotations
 
 import os
+import secrets
 from pathlib import Path
+from urllib.parse import urlparse
 
-from flask import Flask, abort, render_template, request
+from flask import Flask, Response, abort, render_template, request
 
+from links import LINK_ENV_KEYS
 from portfolio_data import (
     BIO_PARAGRAPHS,
     CAPABILITIES,
@@ -16,7 +19,40 @@ from portfolio_data import (
 
 BASE_DIR = Path(__file__).resolve().parent
 
+
+def safe_http_url(value: str | None) -> str | None:
+    """Allow only http(s) URLs with a host (blocks javascript:, data:, etc.)."""
+    if not value or not isinstance(value, str):
+        return None
+    stripped = value.strip()
+    if not stripped:
+        return None
+    parsed = urlparse(stripped)
+    if parsed.scheme.lower() not in ("http", "https"):
+        return None
+    if not parsed.netloc:
+        return None
+    return stripped
+
+
 app = Flask(__name__, static_folder="static", template_folder="templates")
+app.secret_key = os.environ.get("SECRET_KEY") or secrets.token_hex(32)
+
+
+@app.after_request
+def add_security_headers(response: Response) -> Response:
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "SAMEORIGIN"
+    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+    response.headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=()"
+    response.headers["Cross-Origin-Opener-Policy"] = "same-origin"
+    response.headers["Cross-Origin-Resource-Policy"] = "same-origin"
+    return response
+
+
+@app.template_filter("safe_http_url")
+def safe_http_url_filter(value: str | None) -> str | None:
+    return safe_http_url(value)
 
 
 @app.context_processor
@@ -72,6 +108,21 @@ def project_detail(slug: str):
         page_title=f"{project.title} | Di Luong",
         project=project,
         project_images=project_images,
+    )
+
+
+@app.route("/go/<slug>/")
+def go(slug: str):
+    env_key = LINK_ENV_KEYS.get(slug)
+    if env_key is None:
+        abort(404)
+
+    target = safe_http_url(os.environ.get(env_key))
+    return render_template(
+        "go.html",
+        page_title="Redirecting",
+        target=target,
+        slug=slug,
     )
 
 

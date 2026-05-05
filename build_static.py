@@ -1,6 +1,7 @@
 from flask_frozen import Freezer
 
 from app import app
+from links import LINK_ENV_KEYS
 from portfolio_data import PROJECTS
 
 
@@ -15,6 +16,12 @@ freezer = Freezer(app)
 def project_detail():
     for project in PROJECTS:
         yield {"slug": project.slug}
+
+
+@freezer.register_generator
+def go():
+    for slug in LINK_ENV_KEYS:
+        yield {"slug": slug}
 
 
 if __name__ == "__main__":

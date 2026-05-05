@@ -61,11 +61,8 @@ PROJECTS: list[Project] = [
             "Featured in TechCrunch for bridging informal community loan groups with digital tools.",
         ],
         references=[
-            {"label": "GitHub repo", "url": "https://github.com/fourthletter/eSuSu"},
-            {
-                "label": "TechCrunch feature",
-                "url": "https://techcrunch.com/2016/05/08/e-susu-aims-to-close-the-gap-between-community-loan-groups-and-traditional-banking-services/",
-            },
+            {"label": "GitHub repo", "slug": "esusu-repo"},
+            {"label": "TechCrunch feature", "slug": "esusu-press"},
         ],
     ),
     Project(
@@ -82,11 +79,8 @@ PROJECTS: list[Project] = [
             "Featured at MozFest 2021 for design justice and inclusivity-centered AI work.",
         ],
         references=[
-            {"label": "GitHub repo", "url": "https://github.com/fourthletter/nanny-surveillance"},
-            {
-                "label": "Mozilla Foundation feature",
-                "url": "https://www.mozillafoundation.org/en/blog/building-with-a-bias-for-inclusivity-at-mozfest-2021/",
-            },
+            {"label": "GitHub repo", "slug": "nanny-state-repo"},
+            {"label": "Mozilla Foundation feature", "slug": "nanny-state-press"},
         ],
     ),
     Project(
@@ -98,10 +92,7 @@ PROJECTS: list[Project] = [
         approach="Supported the development and adaptation of investigation-focused resources, workshops, and learning pathways that make investigative practices more usable for wider communities.",
         impact="Helped strengthen investigative capacity among journalists, researchers, and civic actors working to collect evidence and understand social issues responsibly.",
         references=[
-            {
-                "label": "Tactical Tech: Exposing The Invisible",
-                "url": "https://exposingtheinvisible.org/en",
-            }
+            {"label": "Tactical Tech: Exposing The Invisible", "slug": "exposing-the-invisible"},
         ],
     ),
     Project(
@@ -113,10 +104,7 @@ PROJECTS: list[Project] = [
         approach="Contributed to research and accessible documentation practices that help organizers understand tool usage across jurisdictions and advocate for pretrial decarceration.",
         impact="Improved public access to information on pretrial risk assessment practices and supported movement-based analysis of algorithmic harm in the legal system.",
         references=[
-            {
-                "label": "Mapping Pretrial Risk",
-                "url": "https://pretrialrisk.com",
-            }
+            {"label": "Mapping Pretrial Risk", "slug": "mapping-pretrial-risk"},
         ],
     ),
     Project(
@@ -133,11 +121,8 @@ PROJECTS: list[Project] = [
             "Selected for the Digital Participation Camp in Munster, Germany.",
         ],
         references=[
-            {"label": "DemoChat event video", "url": "https://www.youtube.com/watch?v=EfocaSr1kS0"},
-            {
-                "label": "Making All Voices Count article",
-                "url": "https://www.makingallvoicescount.org/news/global-innovation-competition-finale-innovation-celebration-and-now-the-hard-work-really-begins/",
-            },
+            {"label": "DemoChat event video", "slug": "demochat-video"},
+            {"label": "Making All Voices Count article", "slug": "demochat-press"},
         ],
     ),
 ]

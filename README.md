@@ -1,8 +1,8 @@
-# Di Luong Portfolio (Flask)
+# Portfolio (Flask)
 
-Portfolio rebuilt as a Python-powered Flask app with server-rendered templates and static assets.
+Personal portfolio rendered by a small Flask app and shipped to GitHub Pages as a static site via Frozen-Flask.
 
-## Local Development
+## Local development
 
 ```bash
 python3 -m venv .venv
@@ -11,56 +11,64 @@ pip install -r requirements.txt
 flask --app app run
 ```
 
-Open [http://localhost:5000](http://localhost:5000).
+Open <http://localhost:5000>.
 
 ## Routes
 
-- `/` - Home
-- `/about` - Bio
-- `/projects` - Projects
-- `/projects/<slug>` - Project detail pages
+- `/` – Home
+- `/about/` – Bio
+- `/projects/` – Projects index
+- `/projects/<slug>/` – Project detail / case study
+- `/go/<slug>/` – Outbound redirect (resolves the destination from an environment variable; see "Outbound link configuration" below)
 
-## Deploy from GitHub to GitHub Pages
+## Outbound link configuration
 
-This repo deploys directly from GitHub Actions to GitHub Pages by:
+Outbound links are referenced by a slug so handles and third-party URLs stay out of source. The mapping `slug -> environment variable name` lives in [`links.py`](links.py); the actual URLs are read from environment variables at build time.
 
-- freezing Flask routes into static HTML (`build_static.py`)
-- publishing the generated `dist/` folder
-- writing a `CNAME` file for `diluong.net`
+When building locally (or if a variable is not set in CI) the redirect page renders a "Link unavailable" fallback instead of crashing.
 
-### Deploy steps
+### Required GitHub Actions secrets
 
-1. Push to `main`.
-2. GitHub Actions runs `.github/workflows/deploy-pages.yml`.
-3. Static files are generated and deployed to GitHub Pages automatically.
+Add these in **Settings -> Secrets and variables -> Actions**. Each value should be the full `https://...` URL:
 
-### Connect `diluong.net`
+- `LINK_CONTACT_GITHUB`
+- `LINK_CONTACT_LINKEDIN`
+- `LINK_ESUSU_REPO`
+- `LINK_ESUSU_PRESS`
+- `LINK_NANNY_STATE_REPO`
+- `LINK_NANNY_STATE_PRESS`
+- `LINK_EXPOSING_THE_INVISIBLE`
+- `LINK_MAPPING_PRETRIAL_RISK`
+- `LINK_DEMOCHAT_VIDEO`
+- `LINK_DEMOCHAT_PRESS`
 
-In your DNS provider, set:
+Optional:
 
-- `A` record host `@` to:
-  - `185.199.108.153`
-  - `185.199.109.153`
-  - `185.199.110.153`
-  - `185.199.111.153`
-- `CNAME` record host `www` to `fourthletter.github.io`
+- `SITE_DOMAIN` – custom domain to write into `dist/CNAME` (e.g. `example.com`). If unset, no CNAME file is written.
 
-Then in GitHub repository settings:
-
-1. Open **Settings -> Pages**.
-2. Ensure **Source** is **GitHub Actions**.
-3. Confirm custom domain is `diluong.net` (workflow also writes `dist/CNAME`).
-4. Enable **Enforce HTTPS** after DNS resolves.
-
-## Alternative WSGI deployment
-
-If deploying outside Vercel (Render/Heroku/etc.), this repo also includes:
-
-- `wsgi.py` as a WSGI entrypoint
-- `Procfile` with `gunicorn wsgi:app`
-
-Run with:
+### Local builds with placeholders
 
 ```bash
-gunicorn wsgi:app
+export LINK_CONTACT_GITHUB="https://example.com/contact-github"
+export LINK_CONTACT_LINKEDIN="https://www.linkedin.com/in/your-profile/"
+# ... etc, or leave unset to render placeholder pages
+python build_static.py
 ```
+
+## Deployment
+
+Pushes to `main` trigger [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml), which:
+
+1. Installs dependencies from `requirements.txt`.
+2. Runs `python build_static.py` with the link secrets injected as environment variables.
+3. Optionally writes `dist/CNAME` from `SITE_DOMAIN`.
+4. Uploads `dist/` as a Pages artifact and deploys it.
+
+In **Settings -> Pages**, ensure **Source** is set to **GitHub Actions** and (if you set `SITE_DOMAIN`) configure the matching custom domain DNS at your provider.
+
+## Security posture
+
+- Every served page sets a strict `Content-Security-Policy` meta tag (`default-src 'none'`, `script-src 'none'`, `style-src 'self'`, etc.).
+- Outbound URLs only leave the repository at build time via env vars.
+- The Flask runtime adds defence-in-depth response headers (`X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, COOP, CORP); those apply when running the app dynamically.
+- `safe_http_url` rejects any non-`http(s)` scheme before it reaches the redirect template.

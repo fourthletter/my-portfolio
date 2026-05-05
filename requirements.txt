@@ -1,3 +1,3 @@
-Flask
-gunicorn
-Frozen-Flask
+Flask>=3.0.3,<4
+gunicorn>=22.0.0
+Frozen-Flask>=1.0.2

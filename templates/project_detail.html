@@ -33,7 +33,7 @@
           <h2 class="eyebrow">References</h2>
           <div class="button-row">
             {% for reference in project.references %}
-              <a href="{{ reference.url }}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">{{ reference.label }}</a>
+              <a href="{{ url_for('go', slug=reference.slug) }}" rel="noopener noreferrer" class="btn btn-secondary">{{ reference.label }}</a>
             {% endfor %}
           </div>
         </div>

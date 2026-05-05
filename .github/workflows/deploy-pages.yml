@@ -34,7 +34,6 @@ jobs:
       - name: Build static site
         env:
           LINK_CONTACT_GITHUB: ${{ secrets.LINK_CONTACT_GITHUB }}
-          LINK_CONTACT_LINKEDIN: ${{ secrets.LINK_CONTACT_LINKEDIN }}
           LINK_ESUSU_REPO: ${{ secrets.LINK_ESUSU_REPO }}
           LINK_ESUSU_PRESS: ${{ secrets.LINK_ESUSU_PRESS }}
           LINK_NANNY_STATE_REPO: ${{ secrets.LINK_NANNY_STATE_REPO }}
@@ -46,7 +45,11 @@ jobs:
           SITE_DOMAIN: ${{ secrets.SITE_DOMAIN }}
         run: |
           python build_static.py
-          if [ -n "$SITE_DOMAIN" ]; then echo "$SITE_DOMAIN" > dist/CNAME; fi
+          if [ -n "${SITE_DOMAIN:-}" ]; then
+            echo "$SITE_DOMAIN" > dist/CNAME
+          else
+            echo "diluong.net" > dist/CNAME
+          fi
           touch dist/.nojekyll
 
       - name: Configure Pages

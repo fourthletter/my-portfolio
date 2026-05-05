@@ -126,7 +126,7 @@ export const projects: Project[] = [
     references: [
       {
         label: "Tactical Tech: Exposing The Invisible",
-        url: "https://tacticaltech.org/projects/exposing-the-invisible/",
+        url: "https://exposingtheinvisible.org/en",
       },
     ],
   },

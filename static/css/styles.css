@@ -17,6 +17,11 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Anchor target clears sticky header when jumping from home (e.g. Skills link). */
+#skills {
+  scroll-margin-top: 5rem;
+}
+
 body {
   margin: 0;
   background: var(--background);

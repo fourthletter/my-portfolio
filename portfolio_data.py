@@ -139,7 +139,7 @@ CAPABILITIES = [
 SKILLS = [
     "Tech & Data for Good Advocate",
     "Python scripting, scraping",
-    "Researcher",
+    "Fair-code workflow automation",
 ]
 
 BIO_PARAGRAPHS = [

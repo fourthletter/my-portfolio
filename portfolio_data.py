@@ -137,9 +137,9 @@ CAPABILITIES = [
 ]
 
 SKILLS = [
-    "HTML based websites",
+    "Tech & Data for Good Advocate",
     "Python scripting, scraping",
-    "Langflow automation",
+    "Researcher",
 ]
 
 BIO_PARAGRAPHS = [

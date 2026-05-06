@@ -137,7 +137,7 @@ CAPABILITIES = [
 ]
 
 SKILLS = [
-    "Tech & Data for Good Advocate",
+    "Quantative & Qualitative Research",
     "Python scripting, scraping",
     "Open Source Projects",
 ]

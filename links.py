@@ -7,6 +7,8 @@ page LinkedIn link is set separately in templates (see index.html).
 
 from __future__ import annotations
 
+from typing import Final
+
 LINK_ENV_KEYS: dict[str, str] = {
     "contact-github": "LINK_CONTACT_GITHUB",
     "contact-linkedin": "LINK_CONTACT_LINKEDIN",
@@ -19,3 +21,12 @@ LINK_ENV_KEYS: dict[str, str] = {
     "demochat-video": "LINK_DEMOCHAT_VIDEO",
     "demochat-press": "LINK_DEMOCHAT_PRESS",
 }
+
+
+LINK_DEFAULTS: Final[dict[str, str]] = {
+    "contact-linkedin": "https://www.linkedin.com/in/diluong/",
+}
+
+
+def link_default_for_slug(slug: str) -> str | None:
+    return LINK_DEFAULTS.get(slug)

@@ -8,7 +8,7 @@ from urllib.parse import urlparse
 
 from flask import Flask, Response, abort, render_template, request
 
-from links import LINK_ENV_KEYS
+from links import LINK_ENV_KEYS, link_default_for_slug
 from portfolio_data import (
     BIO_PARAGRAPHS,
     CAPABILITIES,
@@ -119,7 +119,7 @@ def go(slug: str):
     if env_key is None:
         abort(404)
 
-    target = safe_http_url(os.environ.get(env_key))
+    target = safe_http_url(os.environ.get(env_key)) or safe_http_url(link_default_for_slug(slug))
     return render_template(
         "go.html",
         page_title="Redirecting",

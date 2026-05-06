@@ -34,6 +34,7 @@ jobs:
       - name: Build static site
         env:
           LINK_CONTACT_GITHUB: ${{ secrets.LINK_CONTACT_GITHUB }}
+          LINK_CONTACT_LINKEDIN: ${{ secrets.LINK_CONTACT_LINKEDIN }}
           LINK_ESUSU_REPO: ${{ secrets.LINK_ESUSU_REPO }}
           LINK_ESUSU_PRESS: ${{ secrets.LINK_ESUSU_PRESS }}
           LINK_NANNY_STATE_REPO: ${{ secrets.LINK_NANNY_STATE_REPO }}

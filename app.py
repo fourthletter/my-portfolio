@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import os
 import secrets
+from datetime import datetime
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -56,8 +57,9 @@ def safe_http_url_filter(value: str | None) -> str | None:
 
 
 @app.context_processor
-def inject_site_navigation() -> dict[str, list[dict[str, str]]]:
+def inject_site_navigation() -> dict[str, object]:
     return {
+        "current_year": datetime.now().year,
         "nav_items": [
             {"endpoint": "home", "label": "Home"},
             {"endpoint": "about", "label": "Bio"},

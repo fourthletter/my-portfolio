@@ -23,7 +23,7 @@ Open <http://localhost:5000>.
 
 ## Outbound link configuration
 
-Most outbound links use a slug so handles and third-party URLs stay out of source; the home-page LinkedIn button links directly in [`templates/index.html`](templates/index.html). The mapping `slug -> environment variable name` lives in [`links.py`](links.py); those URLs are read from environment variables at build time.
+Outbound links use a slug so handles and third-party URLs stay out of source. The mapping `slug -> environment variable name` lives in [`links.py`](links.py); those URLs are read from environment variables at build time.
 
 When building locally (or if a variable is not set in CI) the redirect page renders a "Link unavailable" fallback instead of crashing.
 
@@ -32,6 +32,7 @@ When building locally (or if a variable is not set in CI) the redirect page rend
 Add these in **Settings -> Secrets and variables -> Actions**. Each value should be the full `https://...` URL:
 
 - `LINK_CONTACT_GITHUB`
+- `LINK_CONTACT_LINKEDIN`
 - `LINK_ESUSU_REPO`
 - `LINK_ESUSU_PRESS`
 - `LINK_NANNY_STATE_REPO`
@@ -69,6 +70,6 @@ For **`diluong.net`** DNS at your registrar, point the apex `@` to GitHub Pages 
 ## Security posture
 
 - Every served page sets a strict `Content-Security-Policy` meta tag (`default-src 'none'`, `script-src 'none'`, `style-src 'self'`, etc.).
-- Slug-based outbound URLs only appear in the built site via env vars; LinkedIn on the home page is linked directly in the template.
+- Slug-based outbound URLs only appear in the built site via env vars.
 - The Flask runtime adds defence-in-depth response headers (`X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, COOP, CORP); those apply when running the app dynamically.
 - `safe_http_url` rejects any non-`http(s)` scheme before it reaches the redirect template.

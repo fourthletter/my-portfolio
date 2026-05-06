@@ -71,6 +71,31 @@ a:hover {
   box-shadow: 0 2px 14px rgba(20, 38, 53, 0.05);
 }
 
+.site-footer {
+  border-top: 1px solid rgba(185, 196, 204, 0.9);
+  background: rgba(232, 234, 237, 0.95);
+}
+
+.footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 2.2rem 0;
+}
+
+.footer-copy {
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.72rem;
+}
+
 .nav-row {
   display: flex;
   align-items: center;
@@ -447,6 +472,11 @@ h3 {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.75rem;
+  }
+
+  .footer-row {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .hero,

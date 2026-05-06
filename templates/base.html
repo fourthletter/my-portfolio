@@ -23,5 +23,15 @@
     </header>
 
     {% block content %}{% endblock %}
+
+    <footer class="site-footer">
+      <div class="container footer-row">
+        <p class="footer-copy">© {{ current_year }} Di Luong</p>
+        <div class="footer-links">
+          <a class="btn btn-secondary" href="{{ url_for('go', slug='contact-github') }}" rel="noopener noreferrer">GitHub</a>
+          <a class="btn btn-secondary" href="{{ url_for('go', slug='contact-linkedin') }}" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

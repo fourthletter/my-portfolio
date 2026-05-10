@@ -46,21 +46,29 @@
       </div>
     </section>
 
-    <section class="strip fade-in-up">
-      <div class="container triple">
-        <article>
-          <h2 class="eyebrow">Challenge</h2>
-          <p class="body">{{ project.challenge }}</p>
-        </article>
-        <article>
-          <h2 class="eyebrow">Approach</h2>
-          <p class="body">{{ project.approach }}</p>
-        </article>
-        <article>
-          <h2 class="eyebrow">Impact</h2>
-          <p class="body">{{ project.impact }}</p>
-        </article>
-      </div>
-    </section>
+    {% if project.challenge or project.approach or project.impact %}
+      <section class="strip fade-in-up">
+        <div class="container triple">
+          <article>
+            <h2 class="eyebrow">Challenge</h2>
+            <p class="body">{{ project.challenge }}</p>
+          </article>
+          <article>
+            <h2 class="eyebrow">Approach</h2>
+            <p class="body">{{ project.approach }}</p>
+          </article>
+          <article>
+            <h2 class="eyebrow">Impact</h2>
+            <p class="body">{{ project.impact }}</p>
+          </article>
+        </div>
+      </section>
+    {% endif %}
+
+    {% if project.body_html %}
+      <section class="container section narrow fade-in-up project-markdown">
+        <div class="markdown-body">{{ project.body_html | safe }}</div>
+      </section>
+    {% endif %}
   </main>
 {% endblock %}

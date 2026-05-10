@@ -8,10 +8,8 @@
         </div>
         <div>
           <p class="eyebrow">Bio</p>
-          <h1 class="about-headline">I am a researcher, writer, and technologist connecting the dots between social justice and technology.</h1>
-          <div class="copy-stack">
-            <p class="body">{{ bio_paragraphs | join(' ') }}</p>
-          </div>
+          <h1 class="about-headline">{{ about.headline }}</h1>
+          <div class="copy-stack markdown-body">{{ about.bio_html | safe }}</div>
         </div>
       </div>
     </section>
@@ -21,7 +19,7 @@
         <div>
           <h2 class="eyebrow">Core Capabilities</h2>
           <div class="pill-wrap">
-            {% for item in capabilities %}
+            {% for item in about.capabilities %}
               <span class="pill strong">{{ item }}</span>
             {% endfor %}
           </div>
@@ -29,7 +27,7 @@
         <div>
           <h2 class="eyebrow">Skills</h2>
           <div class="pill-wrap">
-            {% for item in skills %}
+            {% for item in about.skills %}
               <span class="pill strong">{{ item }}</span>
             {% endfor %}
           </div>

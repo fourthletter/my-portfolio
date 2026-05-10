@@ -10,10 +10,10 @@ from flask import Flask, Response, abort, render_template, request
 
 from links import LINK_ENV_KEYS, link_default_for_slug
 from portfolio_data import (
-    BIO_PARAGRAPHS,
-    CAPABILITIES,
+    ABOUT_PAGE,
     PROJECTS,
-    SKILLS,
+    SITE_HOME,
+    featured_projects,
     get_project_by_slug,
     resolve_project_images,
 )
@@ -68,28 +68,26 @@ def inject_site_navigation() -> dict[str, object]:
     }
 
 
-@app.route("/")
+@app.route("/", methods=["GET"])
 def home():
     return render_template(
         "index.html",
         page_title="Di Luong Portfolio",
-        skills=SKILLS,
-        projects=PROJECTS[:4],
+        site_home=SITE_HOME,
+        projects=featured_projects(PROJECTS),
     )
 
 
-@app.route("/about/")
+@app.route("/about/", methods=["GET"])
 def about():
     return render_template(
         "about.html",
         page_title="Bio | Di Luong",
-        bio_paragraphs=BIO_PARAGRAPHS,
-        capabilities=CAPABILITIES,
-        skills=SKILLS,
+        about=ABOUT_PAGE,
     )
 
 
-@app.route("/projects/")
+@app.route("/projects/", methods=["GET"])
 def projects():
     return render_template(
         "projects.html",
@@ -98,7 +96,7 @@ def projects():
     )
 
 
-@app.route("/projects/<slug>/")
+@app.route("/projects/<slug>/", methods=["GET"])
 def project_detail(slug: str):
     project = get_project_by_slug(slug)
     if project is None:
@@ -113,7 +111,7 @@ def project_detail(slug: str):
     )
 
 
-@app.route("/go/<slug>/")
+@app.route("/go/<slug>/", methods=["GET"])
 def go(slug: str):
     env_key = LINK_ENV_KEYS.get(slug)
     if env_key is None:

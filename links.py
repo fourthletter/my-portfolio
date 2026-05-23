@@ -1,7 +1,7 @@
 """Slug-to-env-key map for outbound `/go/<slug>/` redirects.
 
 Handle-free slugs live here; destination URLs come from environment variables
-at build time. Project references avoid committing third-party URLs; the home
+at runtime (env vars or defaults). Project references avoid committing third-party URLs; the home
 page LinkedIn link is set separately in templates (see index.html).
 """
 

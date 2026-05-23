@@ -1,8 +1,33 @@
 # Portfolio (Flask)
 
-Personal portfolio rendered by a small Flask app and shipped to GitHub Pages as a static site via Frozen-Flask.
+Personal portfolio rendered by a small Flask app. **Production** is a static build deployed to **https://diluong.net** via GitHub Pages. Use Docker for a private local copy.
 
-## Local development
+## Production (diluong.net)
+
+Pushes to `main` run [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml), which freezes the site with Frozen-Flask and deploys to GitHub Pages with custom domain **`diluong.net`**.
+
+Outbound link URLs come from GitHub Actions secrets (`LINK_*`). Optional `SITE_DOMAIN` overrides the `CNAME` file (defaults to `diluong.net`).
+
+## Docker (local / private)
+
+```bash
+cp .env.example .env
+# Edit .env with your outbound link URLs and a SECRET_KEY
+
+docker compose up --build
+```
+
+Open <http://127.0.0.1:8080>. By default the port is bound to **localhost only** so the site stays private on your machine.
+
+To reach it from other devices on your home network, change the port mapping in `docker-compose.yml` from `127.0.0.1:8080:5000` to `8080:5000` and use your machine’s LAN IP.
+
+Stop the container:
+
+```bash
+docker compose down
+```
+
+## Local development (without Docker)
 
 ```bash
 python3 -m venv .venv
@@ -37,17 +62,15 @@ Outbound reference buttons still use slugs resolved via [`links.py`](links.py) (
 
 ### Who can change what visitors see
 
-This project does **not** include a web UI or API for editing Markdown—nothing on the public site accepts uploads or saves content to disk. The live HTML is produced only from files in **`content/`** at **build time** (Frozen-Flask / CI). So **only people who can merge changes into your deployed branch** effectively control the site: keep **`main`** branch protection on (require pull requests, restrict who can push), limit **collaborators**, and use a **private repository** if you need the source restricted. Markdown is rendered then passed through an HTML **allowlist sanitizer** (`nh3`) so unsafe tags and URLs are dropped even if malicious content were merged by mistake.
+This project does **not** include a web UI or API for editing Markdown—nothing on the site accepts uploads or saves content to disk. HTML is produced from files in **`content/`** when the app starts (or when you rebuild the Docker image after editing content). Markdown is rendered then passed through an HTML **allowlist sanitizer** (`nh3`) so unsafe tags and URLs are dropped even if malicious content were merged by mistake.
 
 ## Outbound link configuration
 
-Outbound links use a slug so handles and third-party URLs stay out of source. The mapping `slug -> environment variable name` lives in [`links.py`](links.py); those URLs are read from environment variables at build time.
+Outbound links use a slug so handles and third-party URLs stay out of source. The mapping `slug -> environment variable name` lives in [`links.py`](links.py); those URLs are read from environment variables at runtime.
 
-When building locally (or if a variable is not set in CI) the redirect page renders a "Link unavailable" fallback instead of crashing.
+When a variable is not set, [`links.py`](links.py) falls back to built-in defaults for known slugs.
 
-### Required GitHub Actions secrets
-
-Add these in **Settings -> Secrets and variables -> Actions**. Each value should be the full `https://...` URL:
+Set these in `.env` (Docker) or your shell (local dev). Each value should be the full `https://...` URL:
 
 - `LINK_CONTACT_GITHUB`
 - `LINK_CONTACT_LINKEDIN`
@@ -60,35 +83,23 @@ Add these in **Settings -> Secrets and variables -> Actions**. Each value should
 - `LINK_DEMOCHAT_VIDEO`
 - `LINK_DEMOCHAT_PRESS`
 
-Optional:
+See [`.env.example`](.env.example) for a template.
 
-- `SITE_DOMAIN` – overrides the hostname written to `dist/CNAME`. If unset, the workflow defaults to **`diluong.net`** so GitHub Pages can serve that custom domain.
-
-### Local builds with placeholders
+## Optional static export
 
 ```bash
-export LINK_CONTACT_GITHUB="https://example.com/contact-github"
-# ... etc, or leave unset to render placeholder pages
+export LINK_CONTACT_GITHUB="https://example.com/..."
+# ... other LINK_* vars
 python build_static.py
 ```
 
-## Deployment
-
-Pushes to `main` trigger [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml), which:
-
-1. Installs dependencies from `requirements.txt`.
-2. Runs `python build_static.py` with the link secrets injected as environment variables.
-3. Writes `dist/CNAME` as **`diluong.net`**, or the value of `SITE_DOMAIN` if that secret is set.
-4. Uploads `dist/` as a Pages artifact and deploys it.
-
-In **Settings -> Pages**, set **Source** to **GitHub Actions**, add custom domain **`diluong.net`** (and `www` if you use it), then enable **Enforce HTTPS** after DNS verifies.
-
-For **`diluong.net`** DNS at your registrar, point the apex `@` to GitHub Pages using GitHub’s current documented IP addresses for **`A`** records, and use a **`CNAME`** from **`www`** to **`<your-username>.github.io`** if you want **www**. Confirm the exact values under **Pages → Custom domain** in your repo settings; GitHub shows what they expect.
+Output lands in `dist/`. CI uses the same command for production.
 
 ## Security posture
 
 - Markdown bodies are converted to HTML with Python-Markdown, then sanitized with **`nh3`** (restricted tags/attributes and URL schemes) before templates render them.
 - Every served page sets a strict `Content-Security-Policy` meta tag (`default-src 'none'`, `script-src 'none'`, `style-src 'self'`, etc.).
-- Slug-based outbound URLs only appear in the built site via env vars.
-- The Flask runtime adds defence-in-depth response headers (`X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, COOP, CORP); those apply when running the app dynamically.
+- Slug-based outbound URLs are resolved from env vars (or safe defaults in `links.py`).
+- The Flask runtime adds defence-in-depth response headers (`X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, COOP, CORP).
 - `safe_http_url` rejects any non-`http(s)` scheme before it reaches the redirect template.
+- Keep the repo **private** on GitHub if you do not want source visible; `.env` is gitignored and should never be committed.

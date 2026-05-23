@@ -1,0 +1,13 @@
+services:
+  web:
+    build: .
+    ports:
+      # Bind to localhost only so the site is not exposed on your LAN by default.
+      # Change to "8080:5000" if you need access from other devices on the network.
+      - "127.0.0.1:8080:5000"
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      SECRET_KEY: ${SECRET_KEY:-}
+    restart: unless-stopped

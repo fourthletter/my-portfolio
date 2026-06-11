@@ -1,42 +1,82 @@
-# Portfolio (Flask)
+# Portfolio (static site)
 
-Personal portfolio rendered by a small Flask app. **Production** is a static build deployed to **https://diluong.net** via GitHub Pages. Use Docker for a private local copy.
+Personal portfolio built as **static HTML** with [Frozen-Flask](https://pythonhosted.org/Frozen-Flask/). Edit Markdown under `content/`, run one build command, and deploy the `dist/` folder.
 
-## Production (diluong.net)
+**Production:** https://diluong.net
 
-Pushes to `main` run [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml), which freezes the site with Frozen-Flask and deploys to GitHub Pages with custom domain **`diluong.net`**.
+## How it works
 
-Outbound link URLs come from GitHub Actions secrets (`LINK_*`). Optional `SITE_DOMAIN` overrides the `CNAME` file (defaults to `diluong.net`).
+1. Flask renders templates and Markdown from `content/` at **build time**.
+2. `build_static.py` freezes every route into `dist/` (plain HTML, CSS, images).
+3. Hosts serve `dist/` as a static site—no Python runtime in production.
 
-## Docker (local / private)
-
-```bash
-cp .env.example .env
-# Edit .env with your outbound link URLs and a SECRET_KEY
-
-docker compose up --build
+```
+content/ + templates/  →  python build_static.py  →  dist/  →  GitHub Pages / Render / Docker
 ```
 
-Open <http://127.0.0.1:8080>. By default the port is bound to **localhost only** so the site stays private on your machine.
-
-To reach it from other devices on your home network, change the port mapping in `docker-compose.yml` from `127.0.0.1:8080:5000` to `8080:5000` and use your machine’s LAN IP.
-
-Stop the container:
-
-```bash
-docker compose down
-```
-
-## Local development (without Docker)
+## Local build
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
+pip install -r requirements-build.txt
+cp .env.example .env   # optional: set LINK_* URLs
+
+chmod +x scripts/build_static_site.sh
+./scripts/build_static_site.sh
+```
+
+Preview locally:
+
+```bash
+cd dist && python -m http.server 8080
+```
+
+Open <http://127.0.0.1:8080>.
+
+## Docker (static preview)
+
+Builds `dist/` inside the image and serves it with nginx on localhost:
+
+```bash
+docker compose up --build
+```
+
+Open <http://127.0.0.1:8080>.
+
+## Deploy to GitHub Pages (diluong.net)
+
+Pushes to `main` run [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml):
+
+1. Installs `requirements-build.txt`
+2. Runs `./scripts/build_static_site.sh` (writes `dist/CNAME` → `diluong.net`)
+3. Deploys `dist/` to GitHub Pages
+
+Outbound link URLs come from **GitHub Actions secrets** (`LINK_*`). Optional `SITE_DOMAIN` overrides the CNAME.
+
+## Deploy to Render
+
+[`render.yaml`](render.yaml) defines a **Static Site** that runs the same build and publishes `dist/`.
+
+1. Sign in at [render.com](https://render.com) and **New → Blueprint**.
+2. Connect the `fourthletter/my-portfolio` repo—Render reads `render.yaml`.
+3. On the `diluong-portfolio` service, add the same `LINK_*` environment variables you use in GitHub Actions.
+4. After the first deploy, add custom domain **diluong.net** under **Settings → Custom Domains** (if using Render for production).
+
+Render redeploys automatically on every push to `main`.
+
+> **DNS:** Point `diluong.net` at **either** GitHub Pages **or** Render, not both. Disable the custom domain on the host you are not using.
+
+## Local Flask dev (optional)
+
+For live reload while editing templates:
+
+```bash
 pip install -r requirements.txt
 flask --app app run
 ```
 
-Open <http://localhost:5000>.
+Open <http://localhost:5000>. This is for development only—production always uses the static build.
 
 ## Routes
 
@@ -44,11 +84,9 @@ Open <http://localhost:5000>.
 - `/about/` – Bio
 - `/projects/` – Projects index
 - `/projects/<slug>/` – Project detail / case study
-- `/go/<slug>/` – Outbound redirect (resolves the destination from an environment variable; see "Outbound link configuration" below)
+- `/go/<slug>/` – Outbound redirect (baked into static HTML at build time)
 
 ## Content (Markdown & YAML)
-
-Most copy lives under **`content/`**, similar to a Hugo-style repo:
 
 | Location | Purpose |
 | -------- | ------- |
@@ -58,19 +96,13 @@ Most copy lives under **`content/`**, similar to a Hugo-style repo:
 
 Projects are ordered by `weight`, then slug. Set **`featured: true`** on items that should appear on the home page; if none are featured, the first four projects by that sort order are shown.
 
-Outbound reference buttons still use slugs resolved via [`links.py`](links.py) (same as before).
-
-### Who can change what visitors see
-
-This project does **not** include a web UI or API for editing Markdown—nothing on the site accepts uploads or saves content to disk. HTML is produced from files in **`content/`** when the app starts (or when you rebuild the Docker image after editing content). Markdown is rendered then passed through an HTML **allowlist sanitizer** (`nh3`) so unsafe tags and URLs are dropped even if malicious content were merged by mistake.
-
 ## Outbound link configuration
 
-Outbound links use a slug so handles and third-party URLs stay out of source. The mapping `slug -> environment variable name` lives in [`links.py`](links.py); those URLs are read from environment variables at runtime.
+Outbound links use slugs so URLs stay out of source. The mapping lives in [`links.py`](links.py); values are read from environment variables **at build time**.
 
-When a variable is not set, [`links.py`](links.py) falls back to built-in defaults for known slugs.
+When a variable is not set, [`links.py`](links.py) falls back to built-in defaults.
 
-Set these in `.env` (Docker) or your shell (local dev). Each value should be the full `https://...` URL:
+Set these in `.env` (local builds), **GitHub Actions secrets**, and **Render env vars**:
 
 - `LINK_CONTACT_GITHUB`
 - `LINK_CONTACT_LINKEDIN`
@@ -83,23 +115,12 @@ Set these in `.env` (Docker) or your shell (local dev). Each value should be the
 - `LINK_DEMOCHAT_VIDEO`
 - `LINK_DEMOCHAT_PRESS`
 
-See [`.env.example`](.env.example) for a template.
-
-## Optional static export
-
-```bash
-export LINK_CONTACT_GITHUB="https://example.com/..."
-# ... other LINK_* vars
-python build_static.py
-```
-
-Output lands in `dist/`. CI uses the same command for production.
+See [`.env.example`](.env.example).
 
 ## Security posture
 
-- Markdown bodies are converted to HTML with Python-Markdown, then sanitized with **`nh3`** (restricted tags/attributes and URL schemes) before templates render them.
-- Every served page sets a strict `Content-Security-Policy` meta tag (`default-src 'none'`, `script-src 'none'`, `style-src 'self'`, etc.).
-- Slug-based outbound URLs are resolved from env vars (or safe defaults in `links.py`).
-- The Flask runtime adds defence-in-depth response headers (`X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, COOP, CORP).
+- Markdown bodies are converted to HTML with Python-Markdown, then sanitized with **`nh3`** before templates render them.
+- Every page sets a strict `Content-Security-Policy` meta tag (`default-src 'none'`, `script-src 'none'`, `style-src 'self'`, etc.).
+- Slug-based outbound URLs are resolved from env vars (or safe defaults in `links.py`) at build time.
 - `safe_http_url` rejects any non-`http(s)` scheme before it reaches the redirect template.
-- Keep the repo **private** on GitHub if you do not want source visible; `.env` is gitignored and should never be committed.
+- Render adds `X-Frame-Options`, `X-Content-Type-Options`, and related headers via `render.yaml`.

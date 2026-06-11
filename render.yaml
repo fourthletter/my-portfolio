@@ -1,0 +1,47 @@
+# Render Blueprint: static site (Frozen-Flask → dist/)
+# Connect this repo in the Render dashboard, then set LINK_* env vars on the service.
+# Custom domain: Render → Settings → Custom Domains → diluong.net
+# Use either Render OR GitHub Pages for diluong.net DNS—not both.
+
+services:
+  - type: web
+    name: diluong-portfolio
+    runtime: static
+    buildCommand: pip install -r requirements-build.txt && chmod +x scripts/build_static_site.sh && WRITE_CNAME=0 ./scripts/build_static_site.sh
+    staticPublishPath: ./dist
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: LINK_CONTACT_GITHUB
+        sync: false
+      - key: LINK_CONTACT_LINKEDIN
+        sync: false
+      - key: LINK_ESUSU_REPO
+        sync: false
+      - key: LINK_ESUSU_PRESS
+        sync: false
+      - key: LINK_NANNY_STATE_REPO
+        sync: false
+      - key: LINK_NANNY_STATE_PRESS
+        sync: false
+      - key: LINK_EXPOSING_THE_INVISIBLE
+        sync: false
+      - key: LINK_MAPPING_PRETRIAL_RISK
+        sync: false
+      - key: LINK_DEMOCHAT_VIDEO
+        sync: false
+      - key: LINK_DEMOCHAT_PRESS
+        sync: false
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: SAMEORIGIN
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: Permissions-Policy
+        value: camera=(), microphone=(), geolocation=()

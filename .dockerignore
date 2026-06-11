@@ -13,3 +13,7 @@ build
 .DS_Store
 *.pem
 README.md
+render.yaml
+.venv*
+venv
+

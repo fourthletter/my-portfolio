@@ -1,7 +1,2 @@
-Flask>=3.0.3,<4
+-r requirements-build.txt
 gunicorn>=22.0.0
-Frozen-Flask>=1.0.2
-PyYAML>=6.0.1,<7
-python-frontmatter>=1.1.0,<2
-markdown>=3.6,<4
-nh3>=0.3,<0.4

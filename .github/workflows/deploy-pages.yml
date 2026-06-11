@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy static site to GitHub Pages
 
 on:
   push:
@@ -26,10 +26,10 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install dependencies
+      - name: Install build dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r requirements-build.txt
 
       - name: Build static site
         env:
@@ -44,14 +44,7 @@ jobs:
           LINK_DEMOCHAT_VIDEO: ${{ secrets.LINK_DEMOCHAT_VIDEO }}
           LINK_DEMOCHAT_PRESS: ${{ secrets.LINK_DEMOCHAT_PRESS }}
           SITE_DOMAIN: ${{ secrets.SITE_DOMAIN }}
-        run: |
-          python build_static.py
-          if [ -n "${SITE_DOMAIN:-}" ]; then
-            echo "$SITE_DOMAIN" > dist/CNAME
-          else
-            echo "diluong.net" > dist/CNAME
-          fi
-          touch dist/.nojekyll
+        run: chmod +x scripts/build_static_site.sh && ./scripts/build_static_site.sh
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

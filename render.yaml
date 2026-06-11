@@ -1,14 +1,17 @@
 # Render Blueprint: static site (Frozen-Flask → dist/)
-# Connect this repo in the Render dashboard, then set LINK_* env vars on the service.
-# Custom domain: Render → Settings → Custom Domains → diluong.net
-# Use either Render OR GitHub Pages for diluong.net DNS—not both.
+# Launch: https://dashboard.render.com/blueprint/new?repo=https://github.com/fourthletter/my-portfolio
+# Set each LINK_* env var when applying the Blueprint (same values as GitHub Actions secrets).
 
 services:
   - type: web
     name: diluong-portfolio
     runtime: static
+    repo: https://github.com/fourthletter/my-portfolio
+    branch: main
     buildCommand: pip install -r requirements-build.txt && chmod +x scripts/build_static_site.sh && WRITE_CNAME=0 ./scripts/build_static_site.sh
     staticPublishPath: ./dist
+    domains:
+      - diluong.net
     envVars:
       - key: PYTHON_VERSION
         value: 3.12.0

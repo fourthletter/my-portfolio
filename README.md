@@ -2,17 +2,64 @@
 
 Personal portfolio built as **static HTML** with [Frozen-Flask](https://pythonhosted.org/Frozen-Flask/). Edit Markdown under `content/`, run one build command, and deploy the `dist/` folder.
 
-**Production:** https://diluong.net
+**Production:** https://diluong.net (Render)
 
 ## How it works
 
 1. Flask renders templates and Markdown from `content/` at **build time**.
 2. `build_static.py` freezes every route into `dist/` (plain HTML, CSS, images).
-3. Hosts serve `dist/` as a static site—no Python runtime in production.
+3. Render serves `dist/` as a static site over its CDN—no Python runtime in production.
 
 ```
-content/ + templates/  →  python build_static.py  →  dist/  →  GitHub Pages / Render / Docker
+content/ + templates/  →  build_static_site.sh  →  dist/  →  Render (diluong.net)
 ```
+
+## Launch on Render
+
+Repo and blueprint are ready. One-time setup:
+
+### 1. Apply the Blueprint
+
+Open this link (sign in to Render if prompted):
+
+**https://dashboard.render.com/blueprint/new?repo=https://github.com/fourthletter/my-portfolio**
+
+- Connect your GitHub account if needed.
+- Render reads [`render.yaml`](render.yaml) and creates the `diluong-portfolio` static site.
+- When prompted, enter values for every **`LINK_*`** environment variable (same URLs you previously used in GitHub Actions secrets).
+
+### 2. Wait for the first deploy
+
+The build runs:
+
+```bash
+pip install -r requirements-build.txt && ./scripts/build_static_site.sh
+```
+
+Check the **Logs** tab on the service until the deploy shows **Live**.
+
+### 3. Move diluong.net from GitHub Pages to Render
+
+**On GitHub** (repo **Settings → Pages**):
+
+- Remove the custom domain **diluong.net** (and `www` if listed).
+
+**On Render** (service **Settings → Custom Domains**):
+
+- Confirm **diluong.net** is listed (declared in `render.yaml`).
+- Copy the DNS records Render shows (typically a CNAME for `www` and an ANAME/ALIAS or A record for the apex `@`).
+
+**At your domain registrar** (where you bought diluong.net):
+
+- Replace GitHub Pages DNS records with Render’s records.
+- DNS can take up to an hour to propagate.
+
+### 4. Verify
+
+- https://diluong.net loads your portfolio
+- https://www.diluong.net redirects to the apex (Render handles this automatically)
+
+After setup, every push to **`main`** triggers an automatic Render redeploy.
 
 ## Local build
 
@@ -43,29 +90,6 @@ docker compose up --build
 ```
 
 Open <http://127.0.0.1:8080>.
-
-## Deploy to GitHub Pages (diluong.net)
-
-Pushes to `main` run [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml):
-
-1. Installs `requirements-build.txt`
-2. Runs `./scripts/build_static_site.sh` (writes `dist/CNAME` → `diluong.net`)
-3. Deploys `dist/` to GitHub Pages
-
-Outbound link URLs come from **GitHub Actions secrets** (`LINK_*`). Optional `SITE_DOMAIN` overrides the CNAME.
-
-## Deploy to Render
-
-[`render.yaml`](render.yaml) defines a **Static Site** that runs the same build and publishes `dist/`.
-
-1. Sign in at [render.com](https://render.com) and **New → Blueprint**.
-2. Connect the `fourthletter/my-portfolio` repo—Render reads `render.yaml`.
-3. On the `diluong-portfolio` service, add the same `LINK_*` environment variables you use in GitHub Actions.
-4. After the first deploy, add custom domain **diluong.net** under **Settings → Custom Domains** (if using Render for production).
-
-Render redeploys automatically on every push to `main`.
-
-> **DNS:** Point `diluong.net` at **either** GitHub Pages **or** Render, not both. Disable the custom domain on the host you are not using.
 
 ## Local Flask dev (optional)
 
@@ -102,7 +126,7 @@ Outbound links use slugs so URLs stay out of source. The mapping lives in [`link
 
 When a variable is not set, [`links.py`](links.py) falls back to built-in defaults.
 
-Set these in `.env` (local builds), **GitHub Actions secrets**, and **Render env vars**:
+Set these in `.env` (local builds) and **Render env vars**:
 
 - `LINK_CONTACT_GITHUB`
 - `LINK_CONTACT_LINKEDIN`

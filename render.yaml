@@ -12,6 +12,7 @@ services:
     staticPublishPath: ./dist
     domains:
       - diluong.net
+    renderSubdomainPolicy: disabled
     envVars:
       - key: PYTHON_VERSION
         value: 3.12.0

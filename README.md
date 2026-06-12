@@ -61,6 +61,8 @@ Check the **Logs** tab on the service until the deploy shows **Live**.
 
 After setup, every push to **`main`** triggers an automatic Render redeploy.
 
+The `onrender.com` subdomain is disabled in [`render.yaml`](render.yaml) (`renderSubdomainPolicy: disabled`); the site is only served at **diluong.net** once DNS is configured.
+
 ## Local build
 
 ```bash

@@ -33,6 +33,7 @@ jobs:
 
       - name: Build static site
         env:
+          SITE_DOMAIN: diluong.net
           LINK_CONTACT_GITHUB: ${{ secrets.LINK_CONTACT_GITHUB }}
           LINK_CONTACT_LINKEDIN: ${{ secrets.LINK_CONTACT_LINKEDIN }}
           LINK_ESUSU_REPO: ${{ secrets.LINK_ESUSU_REPO }}
@@ -43,7 +44,6 @@ jobs:
           LINK_MAPPING_PRETRIAL_RISK: ${{ secrets.LINK_MAPPING_PRETRIAL_RISK }}
           LINK_DEMOCHAT_VIDEO: ${{ secrets.LINK_DEMOCHAT_VIDEO }}
           LINK_DEMOCHAT_PRESS: ${{ secrets.LINK_DEMOCHAT_PRESS }}
-          SITE_DOMAIN: ${{ secrets.SITE_DOMAIN }}
         run: chmod +x scripts/build_static_site.sh && ./scripts/build_static_site.sh
 
       - name: Upload artifact

@@ -2,66 +2,41 @@
 
 Personal portfolio built as **static HTML** with [Frozen-Flask](https://pythonhosted.org/Frozen-Flask/). Edit Markdown under `content/`, run one build command, and deploy the `dist/` folder.
 
-**Production:** https://diluong.net (Render)
+**Production:** https://diluong.net (GitHub Pages)
 
 ## How it works
 
 1. Flask renders templates and Markdown from `content/` at **build time**.
 2. `build_static.py` freezes every route into `dist/` (plain HTML, CSS, images).
-3. Render serves `dist/` as a static site over its CDN—no Python runtime in production.
+3. GitHub Pages serves `dist/` as a static site—no Python runtime in production.
 
 ```
-content/ + templates/  →  build_static_site.sh  →  dist/  →  Render (diluong.net)
+content/ + templates/  →  build_static_site.sh  →  dist/  →  GitHub Pages  →  diluong.net
 ```
 
-## Launch on Render
+## Production (GitHub Pages)
 
-Repo and blueprint are ready. One-time setup:
+Pushes to `main` run [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml):
 
-### 1. Apply the Blueprint
+1. Installs `requirements-build.txt`
+2. Runs `./scripts/build_static_site.sh` with `SITE_DOMAIN=diluong.net` (writes `dist/CNAME`)
+3. Deploys `dist/` to GitHub Pages
 
-Open this link (sign in to Render if prompted):
+Outbound link URLs come from **GitHub Actions secrets** (`LINK_*`).
 
-**https://dashboard.render.com/blueprint/new?repo=https://github.com/fourthletter/my-portfolio**
+### Custom domain setup
 
-- Connect your GitHub account if needed.
-- Render reads [`render.yaml`](render.yaml) and creates the `diluong-portfolio` static site.
-- When prompted, enter values for every **`LINK_*`** environment variable (same URLs you previously used in GitHub Actions secrets).
+In **Settings → Pages**, add custom domain **`diluong.net`** and enable **Enforce HTTPS** after DNS verifies.
 
-### 2. Wait for the first deploy
+At your registrar, point DNS to GitHub Pages:
 
-The build runs:
-
-```bash
-pip install -r requirements-build.txt && ./scripts/build_static_site.sh
-```
-
-Check the **Logs** tab on the service until the deploy shows **Live**.
-
-### 3. Move diluong.net from GitHub Pages to Render
-
-**On GitHub** (repo **Settings → Pages**):
-
-- Remove the custom domain **diluong.net** (and `www` if listed).
-
-**On Render** (service **Settings → Custom Domains**):
-
-- Confirm **diluong.net** is listed (declared in `render.yaml`).
-- Copy the DNS records Render shows (typically a CNAME for `www` and an ANAME/ALIAS or A record for the apex `@`).
-
-**At your domain registrar** (where you bought diluong.net):
-
-- Replace GitHub Pages DNS records with Render’s records.
-- DNS can take up to an hour to propagate.
-
-### 4. Verify
-
-- https://diluong.net loads your portfolio
-- https://www.diluong.net redirects to the apex (Render handles this automatically)
-
-After setup, every push to **`main`** triggers an automatic Render redeploy.
-
-The `onrender.com` subdomain is disabled in [`render.yaml`](render.yaml) (`renderSubdomainPolicy: disabled`); the site is only served at **diluong.net** once DNS is configured.
+| Type | Name | Value |
+|------|------|--------|
+| **A** | `@` | `185.199.108.153` |
+| **A** | `@` | `185.199.109.153` |
+| **A** | `@` | `185.199.110.153` |
+| **A** | `@` | `185.199.111.153` |
+| **CNAME** | `www` | `fourthletter.github.io` |
 
 ## Local build
 
@@ -72,7 +47,7 @@ pip install -r requirements-build.txt
 cp .env.example .env   # optional: set LINK_* URLs
 
 chmod +x scripts/build_static_site.sh
-./scripts/build_static_site.sh
+SITE_DOMAIN=diluong.net ./scripts/build_static_site.sh
 ```
 
 Preview locally:
@@ -128,7 +103,7 @@ Outbound links use slugs so URLs stay out of source. The mapping lives in [`link
 
 When a variable is not set, [`links.py`](links.py) falls back to built-in defaults.
 
-Set these in `.env` (local builds) and **Render env vars**:
+Set these in `.env` (local builds) and **GitHub Actions secrets**:
 
 - `LINK_CONTACT_GITHUB`
 - `LINK_CONTACT_LINKEDIN`
@@ -149,4 +124,3 @@ See [`.env.example`](.env.example).
 - Every page sets a strict `Content-Security-Policy` meta tag (`default-src 'none'`, `script-src 'none'`, `style-src 'self'`, etc.).
 - Slug-based outbound URLs are resolved from env vars (or safe defaults in `links.py`) at build time.
 - `safe_http_url` rejects any non-`http(s)` scheme before it reaches the redirect template.
-- Render adds `X-Frame-Options`, `X-Content-Type-Options`, and related headers via `render.yaml`.

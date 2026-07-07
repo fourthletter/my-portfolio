@@ -20,6 +20,8 @@ LINK_ENV_KEYS: dict[str, str] = {
     "mapping-pretrial-risk": "LINK_MAPPING_PRETRIAL_RISK",
     "demochat-video": "LINK_DEMOCHAT_VIDEO",
     "demochat-press": "LINK_DEMOCHAT_PRESS",
+    "new-tech-new-rules": "LINK_NEW_TECH_NEW_RULES",
+    "more-than-code": "LINK_MORE_THAN_CODE",
 }
 
 
@@ -34,6 +36,8 @@ LINK_DEFAULTS: Final[dict[str, str]] = {
     "mapping-pretrial-risk": "https://pretrialrisk.com/#:~:text=Movement%20Alliance%20Project%20has%20spent%20almost%20three%20years%20gathering%20data%20on%20pretrial%20risk%20assessments.",
     "demochat-video": "https://www.youtube.com/watch?v=EfocaSr1kS0",
     "demochat-press": "https://www.makingallvoicescount.org/news/global-innovation-competition-finale-innovation-celebration-and-now-the-hard-work-really-begins/",
+    "new-tech-new-rules": "https://storyforimpact.io/newtechnewrules",
+    "more-than-code": "https://morethancode.org",
 }
 
 

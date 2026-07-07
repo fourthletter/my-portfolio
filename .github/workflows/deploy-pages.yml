@@ -48,6 +48,8 @@ jobs:
           LINK_MAPPING_PRETRIAL_RISK: ${{ secrets.LINK_MAPPING_PRETRIAL_RISK }}
           LINK_DEMOCHAT_VIDEO: ${{ secrets.LINK_DEMOCHAT_VIDEO }}
           LINK_DEMOCHAT_PRESS: ${{ secrets.LINK_DEMOCHAT_PRESS }}
+          LINK_NEW_TECH_NEW_RULES: ${{ secrets.LINK_NEW_TECH_NEW_RULES }}
+          LINK_MORE_THAN_CODE: ${{ secrets.LINK_MORE_THAN_CODE }}
         run: chmod +x scripts/build_static_site.sh && ./scripts/build_static_site.sh
 
       - name: Upload artifact

@@ -115,6 +115,8 @@ Set these in `.env` (local builds) and **GitHub Actions secrets**:
 - `LINK_MAPPING_PRETRIAL_RISK`
 - `LINK_DEMOCHAT_VIDEO`
 - `LINK_DEMOCHAT_PRESS`
+- `LINK_NEW_TECH_NEW_RULES`
+- `LINK_MORE_THAN_CODE`
 
 See [`.env.example`](.env.example).
 

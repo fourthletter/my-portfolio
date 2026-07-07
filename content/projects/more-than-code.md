@@ -1,6 +1,6 @@
 ---
-slug: more-than-code
-title: MoreThanCode Labor Impact Dashboard
+slug: ai-labor-monitor
+title: AI Labor Monitor
 description: >-
   Research tool mapping reported AI–labor incidents worldwide—monitoring how automation and algorithmic systems affect workers, industries, and labor rights.
 stack:
@@ -15,7 +15,7 @@ impact: >-
   Surfaces patterns in AI's impact on labor at global scale, supporting worker-power campaigns and policy conversations grounded in documented cases.
 references:
   - label: MoreThanCode.org
-    slug: more-than-code
+    slug: ai-labor-monitor
 weight: 20
 featured: true
 ---

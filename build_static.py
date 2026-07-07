@@ -7,7 +7,7 @@ from portfolio_data import PROJECTS
 
 app.config["FREEZER_DESTINATION"] = "dist"
 app.config["FREEZER_REMOVE_EXTRA_FILES"] = False
-app.config["FREEZER_RELATIVE_URLS"] = True
+app.config["FREEZER_RELATIVE_URLS"] = False
 
 freezer = Freezer(app)
 

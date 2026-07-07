@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import re
 import secrets
 from datetime import datetime
 from pathlib import Path
@@ -19,6 +20,7 @@ from portfolio_data import (
 )
 
 BASE_DIR = Path(__file__).resolve().parent
+_SLUG_PATTERN = re.compile(r"^[a-z0-9-]+$")
 
 
 def safe_http_url(value: str | None) -> str | None:
@@ -98,6 +100,9 @@ def projects():
 
 @app.route("/projects/<slug>/", methods=["GET"])
 def project_detail(slug: str):
+    if not _SLUG_PATTERN.fullmatch(slug):
+        abort(404)
+
     project = get_project_by_slug(slug)
     if project is None:
         abort(404)

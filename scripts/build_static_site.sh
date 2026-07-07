@@ -14,3 +14,5 @@ cp static/.well-known/security.txt dist/.well-known/security.txt
 if [ -n "${SITE_DOMAIN:-}" ]; then
   echo "$SITE_DOMAIN" > dist/CNAME
 fi
+
+python scripts/verify_build.py

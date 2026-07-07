@@ -120,7 +120,11 @@ See [`.env.example`](.env.example).
 
 ## Security posture
 
-- Markdown bodies are converted to HTML with Python-Markdown, then sanitized with **`nh3`** before templates render them.
-- Every page sets a strict `Content-Security-Policy` meta tag (`default-src 'none'`, `script-src 'none'`, `style-src 'self'`, etc.).
-- Slug-based outbound URLs are resolved from env vars (or safe defaults in `links.py`) at build time.
-- `safe_http_url` rejects any non-`http(s)` scheme before it reaches the redirect template.
+- Markdown bodies are converted to HTML with Python-Markdown, then sanitized with **`nh3`** (restricted tag/attribute allowlist) before templates render them.
+- Every page includes a strict **Content-Security-Policy** meta tag from [`templates/_csp.html`](templates/_csp.html) (`script-src 'none'`, `connect-src 'none'`, `upgrade-insecure-requests`, etc.).
+- Stylesheets are pinned with **Subresource Integrity (SRI)** at build time via [`scripts/verify_build.py`](scripts/verify_build.py).
+- Project slugs, image paths, and reference slugs are validated at content load time in [`portfolio_data.py`](portfolio_data.py).
+- Slug-based outbound URLs are resolved from env vars (or safe defaults in `links.py`) at build time; `safe_http_url` rejects non-`http(s)` schemes.
+- [`static/.well-known/security.txt`](static/.well-known/security.txt) is published for responsible disclosure.
+- CI runs **`pip-audit`** on build dependencies and post-build HTML checks before deploy.
+- Enable **Enforce HTTPS** under GitHub **Settings → Pages** for HSTS at the edge. Use **branch protection** on `main` to restrict who can change published content.

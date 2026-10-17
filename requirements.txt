@@ -1,2 +1,2 @@
 -r requirements-build.txt
-gunicorn>=22.0.0
+gunicorn>=26.0.0
